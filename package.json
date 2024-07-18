@@ -7,14 +7,21 @@
     "@azure/msal-browser": "^3.17.0",
     "@azure/msal-react": "^2.0.19",
     "@craco/craco": "^7.1.0",
+    "@fluentui/date-time-utilities": "^8.6.9",
     "@fluentui/react": "^8.119.0",
+    "@fluentui/react-hooks": "^8.8.10",
+    "@ionic/core": "^8.2.4",
     "@ionic/react": "^8.2.4",
     "@microsoft/mgt": "^4.2.3",
     "@microsoft/mgt-react": "^4.2.3",
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "@minoru/react-dnd-treeview": "^3.4.4",
+    "@pnp/core": "^4.2.0",
     "@pnp/logging": "^4.2.0",
+    "@pnp/msaljsclient": "^4.2.0",
+    "@pnp/queryable": "^4.2.0",
     "@pnp/sp": "^4.2.0",
+    "@pnp/sp-admin": "^4.2.0",
     "@reduxjs/toolkit": "^2.2.6",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
@@ -24,6 +31,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@uifabric/theme-samples": "^7.5.33",
+    "cross-env": "^7.0.3",
     "gsap": "^3.12.5",
     "monaco-editor": "^0.45.0",
     "nth-check": "^2.1.1",
@@ -53,7 +61,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cracostart": "GENERATE_SOURCEMAP=false craco start"
+    "cracostart": "cross-env GENERATE_SOURCEMAP=false craco start"
   },
   "eslintConfig": {
     "extends": [
