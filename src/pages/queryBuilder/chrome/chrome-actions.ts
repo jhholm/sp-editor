@@ -8,8 +8,8 @@ import * as actions from "../../../store/queryBuilder/actions";
 export async function getLists(dispatch: Dispatch<QueryBuilderActions | HomeActions>, context: any) {
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
     args: [{
       path: `${context && context.siteAbsoluteUrl ? context.siteAbsoluteUrl : ''}/_api/web/lists?$select=Title,Id`,
@@ -18,7 +18,7 @@ export async function getLists(dispatch: Dispatch<QueryBuilderActions | HomeActi
         "accept": "application/json"
       }),
       body: ""
-    }, chrome.runtime.getURL('')],
+    }, browser.runtime.getURL('')],
     func: shoot,
   }).then(injectionResults => {
     if (injectionResults[0].result) {
@@ -40,8 +40,8 @@ export async function selectQueryList(dispatch: Dispatch<QueryBuilderActions | H
   dispatch(rootActions.setLoading(true));
   dispatch(actions.setSelectedList(listId));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
     args: [{
       path: `${context && context.siteAbsoluteUrl ? context.siteAbsoluteUrl : ''}/_api/web/lists/getById(guid'${listId}')/fields?$select=InternalName,TypeAsString,Title,FieldTypeKind,LookupList,LookupField,Hidden,ReadOnlyField,IsDependentLookup`,
@@ -50,7 +50,7 @@ export async function selectQueryList(dispatch: Dispatch<QueryBuilderActions | H
         "accept": "application/json"
       }),
       body: ""
-    }, chrome.runtime.getURL('')],
+    }, browser.runtime.getURL('')],
     func: shoot,
   }).then(injectionResults => {
     if (injectionResults[0].result) {
@@ -72,8 +72,8 @@ export async function getContextInfo(dispatch: Dispatch<QueryBuilderActions | Ho
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
     func: () => {
       return (window as any)._spPageContextInfo || ((window as any).moduleLoaderPromise ? (window as any).moduleLoaderPromise.then((e: any) => {

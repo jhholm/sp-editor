@@ -29,11 +29,11 @@ const SearchCommands = () => {
  
   const indexWebOnClick = () => {
     dispatch(rootActions.setLoading(true));
-    chrome.scripting
+    browser.scripting
       .executeScript({
-        target: { tabId: chrome.devtools.inspectedWindow.tabId },
+        target: { tabId: browser.devtools.inspectedWindow.tabId },
         world: 'MAIN',
-        args: [chrome.runtime.getURL('')],
+        args: [browser.runtime.getURL('')],
         func: reindexweb,
       })
       .then((injectionResults) => {
@@ -79,11 +79,11 @@ const SearchCommands = () => {
                   modifiedQuery.Querytext = replaceDateTokens(searchQuery.Querytext ?? '');
                   modifiedQuery.QueryTemplate = replaceDateTokens(searchQuery.QueryTemplate ?? '');
 
-                  chrome.scripting
+                  browser.scripting
                     .executeScript({
-                      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+                      target: { tabId: browser.devtools.inspectedWindow.tabId },
                       world: 'MAIN',
-                      args: [modifiedQuery, chrome.runtime.getURL('')],
+                      args: [modifiedQuery, browser.runtime.getURL('')],
                       func: runsearch,
                     })
                     .then((injectionResults) => handleInjectionResults(injectionResults, dispatch));
@@ -123,11 +123,11 @@ const SearchCommands = () => {
             iconProps: { iconName: 'SearchAndApps' },
             onClick: () => {
               dispatch(rootActions.setLoading(true));
-              chrome.scripting
+              browser.scripting
                 .executeScript({
-                  target: { tabId: chrome.devtools.inspectedWindow.tabId },
+                  target: { tabId: browser.devtools.inspectedWindow.tabId },
                   world: 'MAIN',
-                  args: [chrome.runtime.getURL('')],
+                  args: [browser.runtime.getURL('')],
                   func: currentpageallprops,
                 })
                 .then((injectionResults) => handleInjectionResults(injectionResults, dispatch));

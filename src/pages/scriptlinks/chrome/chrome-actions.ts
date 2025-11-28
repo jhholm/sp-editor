@@ -16,10 +16,10 @@ export async function getAllScriptLinks(dispatch: Dispatch<ScriptLinksActions | 
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [chrome.runtime.getURL('')],
+    args: [browser.runtime.getURL('')],
     func: getCustomActions,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -69,10 +69,10 @@ export async function addScriptLink(dispatch: Dispatch<ScriptLinksActions | Home
   // close panel
   dispatch(actions.setNewPanel(false));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: createCustomAction,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -114,10 +114,10 @@ export async function updateScriptLink(dispatch: Dispatch<ScriptLinksActions | H
   // close panel
   dispatch(actions.setEditPanel(false));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: updateCustomAction,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -157,10 +157,10 @@ export async function deleteScriptLinks(dispatch: Dispatch<ScriptLinksActions | 
   // show loading spinner
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: deleteCustomActions,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -200,10 +200,10 @@ export async function cacheScriptLinks(dispatch: Dispatch<ScriptLinksActions | H
   // show loading spinner
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: updateCacheCustomAction,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -240,10 +240,10 @@ export async function installApp(dispatch: Dispatch<ScriptLinksActions | HomeAct
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [chrome.runtime.getURL('bundles/sp-scriptlinks.sppkg'), chrome.runtime.getURL('')],
+    args: [browser.runtime.getURL('bundles/sp-scriptlinks.sppkg'), browser.runtime.getURL('')],
     func: addAndInstallApp,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -277,10 +277,10 @@ export async function unInstallApp(dispatch: Dispatch<ScriptLinksActions | HomeA
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [chrome.runtime.getURL('')],
+    args: [browser.runtime.getURL('')],
     func: unInstallAppFromWeb,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {

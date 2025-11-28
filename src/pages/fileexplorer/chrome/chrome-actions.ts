@@ -17,11 +17,11 @@ export function getAllFiles(dispatch: Dispatch<FileExplorerActions | HomeActions
     dispatch(actions.updateLoading(id));
   }
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [chrome.runtime.getURL(''), webId, type, relativeUrl],
+      args: [browser.runtime.getURL(''), webId, type, relativeUrl],
       func: getFiles,
     })
     .then((injectionResults) => {
@@ -78,11 +78,11 @@ export function getFile(dispatch: Dispatch<FileExplorerActions | HomeActions>, f
   dispatch(rootActions.setLoading(true));
   dispatch(actions.setSelectedFile(undefined));
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [chrome.runtime.getURL(''), file.ServerRelativeUrl, file.webId],
+      args: [browser.runtime.getURL(''), file.ServerRelativeUrl, file.webId],
       func: getFileContent,
     })
     .then((injectionResults) => {
@@ -118,11 +118,11 @@ export function updateFileContent(dispatch: Dispatch<FileExplorerActions | HomeA
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [chrome.runtime.getURL(''), file.ServerRelativeUrl, file.webId, content],
+      args: [browser.runtime.getURL(''), file.ServerRelativeUrl, file.webId, content],
       func: updateFile,
     })
     .then((injectionResults) => {
@@ -161,11 +161,11 @@ export function addFolder(dispatch: Dispatch<FileExplorerActions | HomeActions>,
     : file.name.replace(/\/+$/, '');
   const fullUrl = sanitizedServerRelativeUrl + '/' + name;
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [chrome.runtime.getURL(''), fullUrl, file.webId],
+      args: [browser.runtime.getURL(''), fullUrl, file.webId],
       func: createFolder,
     })
     .then((injectionResults) => {
@@ -205,11 +205,11 @@ export function removeFolder(dispatch: Dispatch<FileExplorerActions | HomeAction
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [chrome.runtime.getURL(''), file.ServerRelativeUrl, file.webId],
+      args: [browser.runtime.getURL(''), file.ServerRelativeUrl, file.webId],
       func: deleteFolder,
     })
     .then((injectionResults) => {
@@ -255,11 +255,11 @@ export function addFile(dispatch: Dispatch<FileExplorerActions | HomeActions>, f
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [chrome.runtime.getURL(''), file.ServerRelativeUrl, file.webId, name],
+      args: [browser.runtime.getURL(''), file.ServerRelativeUrl, file.webId, name],
       func: createFile,
     })
     .then((injectionResults) => {
@@ -301,11 +301,11 @@ export function removeFile(dispatch: Dispatch<FileExplorerActions | HomeActions>
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [chrome.runtime.getURL(''), file.ServerRelativeUrl, file.webId],
+      args: [browser.runtime.getURL(''), file.ServerRelativeUrl, file.webId],
       func: deleteFile,
     })
     .then((injectionResults) => {

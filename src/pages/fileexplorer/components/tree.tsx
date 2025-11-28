@@ -281,7 +281,7 @@ const FolderTree: React.FC = () => {
     const extension = filename!.split('.').pop();
     const url = `data:text/${extension};base64, ${btoa(fileEditorRef?.current?.getValue() || '')}`;
 
-    chrome.downloads
+    browser.downloads
       .download({
         url: url,
         filename: filename,

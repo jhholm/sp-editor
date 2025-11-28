@@ -18,7 +18,7 @@ const LoadTeamsDebug = ({ tabId }: any) => {
       iconProps={{ iconName: 'Edit' }}
       styles={buttonStyles}
       onClick={() =>
-        chrome.scripting
+        browser.scripting
           .executeScript({
             target: { tabId: tabId },
             world: 'MAIN',

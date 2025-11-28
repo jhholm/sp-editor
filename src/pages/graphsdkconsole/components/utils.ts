@@ -216,5 +216,5 @@ export const getDefinitionsInUse = (
   return currentLibs
 }
 
-export const sj = `var sj = '${chrome.runtime.getURL('bundles/system.js')}';`
-export const mod_graph_sdk = `var mod_graph_sdk = '${chrome.runtime.getURL('bundles/graph-sdk.es5.umd.bundle.js')}';`
+export const sj = `var sj = '${browser.runtime.getURL('bundles/system.js')}';`
+export const mod_graph_sdk = `var mod_graph_sdk = '${browser.runtime.getURL('bundles/graph-sdk.es5.umd.bundle.js')}';`

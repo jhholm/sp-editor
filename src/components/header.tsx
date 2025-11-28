@@ -19,9 +19,9 @@ const Header = ({ title, showOnLoad, headline, content }: HeaderProps) => {
   const CalloutProps = { directionalHint: DirectionalHint.leftCenter };
 
   useEffect(() => {
-    const handleTabUpdate = (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
+    const handleTabUpdate = (tabId: number, changeInfo: browser.tabs.TabChangeInfo, tab: browser.tabs.Tab) => {
       if (changeInfo.status === 'complete' && tab.active) {
-        chrome.scripting.executeScript({
+        browser.scripting.executeScript({
           target: { tabId: tabId },
           world: 'MAIN',
           func: () => {
@@ -35,14 +35,14 @@ const Header = ({ title, showOnLoad, headline, content }: HeaderProps) => {
     };
 
     if (livereload) {
-      chrome.tabs.onUpdated.addListener(handleTabUpdate);
+      browser.tabs.onUpdated.addListener(handleTabUpdate);
     } else {
-      chrome.tabs.onUpdated.removeListener(handleTabUpdate);
+      browser.tabs.onUpdated.removeListener(handleTabUpdate);
     }
 
     // Cleanup the listener on component unmount
     return () => {
-      chrome.tabs.onUpdated.removeListener(handleTabUpdate);
+      browser.tabs.onUpdated.removeListener(handleTabUpdate);
     };
   }, [livereload]);
 
@@ -68,8 +68,8 @@ const Header = ({ title, showOnLoad, headline, content }: HeaderProps) => {
               checked={livereload}
               onClick={() => {
                 if (!livereload) {
-                  chrome.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
-                    chrome.scripting.executeScript({
+                  browser.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
+                    browser.scripting.executeScript({
                       target: { tabId: tabs[0].id },
                       world: 'MAIN',
                       func: () => {
@@ -81,8 +81,8 @@ const Header = ({ title, showOnLoad, headline, content }: HeaderProps) => {
                     });
                   });
                 } else {
-                  chrome.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
-                    chrome.scripting.executeScript({
+                  browser.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
+                    browser.scripting.executeScript({
                       target: { tabId: tabs[0].id },
                       world: 'MAIN',
                       func: () => {

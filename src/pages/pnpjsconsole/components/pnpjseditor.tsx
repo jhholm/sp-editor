@@ -169,7 +169,7 @@ const PnPjsEditor = () => {
 
       // console.log(script)
       // execute the code
-      chrome.devtools.inspectedWindow.eval(script);
+      browser.devtools.inspectedWindow.eval(script);
       // show loading for a sec to make user know the code is being executed
       dispatch(setLoading(true));
       setTimeout(() => {

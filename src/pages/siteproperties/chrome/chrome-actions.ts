@@ -11,11 +11,11 @@ import { getSites } from './getsites';
 export async function getAllSiteProperties(dispatch: Dispatch<SitePropertiesActions | HomeActions>, siteId: string) {
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [siteId, chrome.runtime.getURL('')],
+      args: [siteId, browser.runtime.getURL('')],
       func: getSiteProperties,
     })
     .then(async (injectionResults) => {
@@ -62,11 +62,11 @@ export async function addSiteProperty(
     dispatch(actions.setNewPanel(false));
   }
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [payload, site, chrome.runtime.getURL('')],
+      args: [payload, site, browser.runtime.getURL('')],
       func: createSiteProperty,
     })
     .then(async (injectionResults) => {
@@ -110,11 +110,11 @@ export async function getAllSites(
 ) {
   dispatch(rootActions.setLoading(true));
 
-  return chrome.scripting
+  return browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [queryText, chrome.runtime.getURL('')],
+      args: [queryText, browser.runtime.getURL('')],
       func: getSites,
     })
     .then(async (injectionResults) => {

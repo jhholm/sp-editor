@@ -60,7 +60,7 @@ const FileEditorCommands = () => {
         onClick: () => {
           if (selectedFolder?.portalUrl && selectedFolder?.ServerRelativeUrl) {
             const url = `${selectedFolder.portalUrl}${selectedFolder.ServerRelativeUrl.replace(/^\//, '')}`;
-            chrome.tabs.create({ url: url });
+            browser.tabs.create({ url: url });
           }
         },
       },

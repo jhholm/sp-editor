@@ -13,10 +13,10 @@ export async function getAllListProperties(dispatch: Dispatch<ListPropertiesActi
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [listId, chrome.runtime.getURL('')],
+    args: [listId, browser.runtime.getURL('')],
     func: getListProperties,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -76,10 +76,10 @@ export async function addListProperty(dispatch: Dispatch<ListPropertiesActions |
     dispatch(actions.setNewPanel(false))
   }
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: createListProperty,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -116,10 +116,10 @@ export async function getAllLists(dispatch: Dispatch<ListPropertiesActions | Hom
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [chrome.runtime.getURL('')],
+    args: [browser.runtime.getURL('')],
     func: getLists,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -167,10 +167,10 @@ export async function removeListProperties(dispatch: Dispatch<ListPropertiesActi
   // show loading spinner
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload[0], chrome.runtime.getURL('')],
+    args: [payload[0], browser.runtime.getURL('')],
     func: deleteListProperty,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {

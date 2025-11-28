@@ -8,23 +8,23 @@ let listener: (tabId: number, changeInfo: any, tab: any) => void; // Listener re
 
 export async function addProxy(dispatch: Dispatch<ProxyActions | HomeActions>, enabled: boolean, payload: IProxy[], update?: boolean) {
   if ((enabled)) {
-    chrome.tabs.onUpdated.removeListener(listener);
+    browser.tabs.onUpdated.removeListener(listener);
     listener = (tabId, changeInfo, tab) => {
       if (changeInfo.status === 'complete' && tab.active) {
         executeScript(dispatch, enabled, payload, false);
       }
     };
-    chrome.tabs.onUpdated.addListener(listener);
+    browser.tabs.onUpdated.addListener(listener);
   } else {
-    chrome.tabs.onUpdated.removeListener(listener);
+    browser.tabs.onUpdated.removeListener(listener);
   }
 
   executeScript(dispatch, enabled, payload, update);
 }
 
 function executeScript(dispatch: Dispatch<ProxyActions | HomeActions>, enabled: boolean, payload: IProxy[], update?: boolean) {
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
     args: [payload, enabled, update],
     func: addProxyScript,

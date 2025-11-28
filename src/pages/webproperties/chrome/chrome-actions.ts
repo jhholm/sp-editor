@@ -12,10 +12,10 @@ export async function getAllWebProperties(dispatch: Dispatch<WebPropertiesAction
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [chrome.runtime.getURL('')],
+    args: [browser.runtime.getURL('')],
     func: getWebProperties,
   }).then(injectionResults => {
     if (injectionResults[0].result) {
@@ -73,10 +73,10 @@ export async function addWebProperty(dispatch: Dispatch<WebPropertiesActions | H
     dispatch(actions.setNewPanel(false))
   }
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: createWebProperty,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -116,10 +116,10 @@ export async function removeWebProperties(dispatch: Dispatch<WebPropertiesAction
   // show loading spinner
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: deleteWebProperties,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {

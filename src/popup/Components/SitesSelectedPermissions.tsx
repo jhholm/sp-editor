@@ -72,7 +72,7 @@ const SitesSelectedPermissions = ({ plo, tabId, ctx }: IQuickLinkListProps) => {
       }
 
       // Execute the fetch in the page context
-      const results = await chrome.scripting.executeScript({
+      const results = await browser.scripting.executeScript({
         target: { tabId: tabId },
         world: 'MAIN',
         args: [hostname, ctx.siteId, ctx.webId],

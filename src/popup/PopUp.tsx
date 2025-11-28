@@ -73,10 +73,10 @@ const PopUp = () => {
 
   // load initial data
   useEffect(() => {
-    chrome.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
+    browser.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
       setTabId(tabs[0].id);
       setTabUrl(tabs[0].url);
-      chrome.scripting
+      browser.scripting
         .executeScript({
           target: { tabId: tabs[0].id },
           world: 'MAIN',
@@ -104,7 +104,7 @@ const PopUp = () => {
               .sort((a, b) => a.property.localeCompare(b.property));
 
             setProperties(props);
-            chrome.scripting.executeScript({
+            browser.scripting.executeScript({
               target: { tabId: tabs[0].id },
               world: 'MAIN',
               func: getTenantSettings,
@@ -116,7 +116,7 @@ const PopUp = () => {
             });
 
             if (ctx.webAbsoluteUrl && ctx.serverRequestPath && ctx.pageListId && ctx.pageItemId > -1) {
-              chrome.scripting.executeScript({
+              browser.scripting.executeScript({
                 target: { tabId: tabs[0].id },
                 world: 'MAIN',
                 func: getPlo,
@@ -129,7 +129,7 @@ const PopUp = () => {
             }
           }
         });
-      chrome.scripting
+      browser.scripting
         .executeScript({
           target: { tabId: tabs[0].id },
           world: 'MAIN',

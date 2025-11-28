@@ -13,10 +13,10 @@ export async function getAllWebHooks(dispatch: Dispatch<WebHooksActions | HomeAc
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [chrome.runtime.getURL('')],
+    args: [browser.runtime.getURL('')],
     func: getWebHooks,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -55,10 +55,10 @@ export async function addWebHook(dispatch: Dispatch<WebHooksActions | HomeAction
   // close panel
   dispatch(actions.setNewPanel(false));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: createWebHook,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -97,10 +97,10 @@ export async function removeWebHook(dispatch: Dispatch<WebHooksActions | HomeAct
   // show loading spinner
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: deleteWebHook,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {
@@ -141,10 +141,10 @@ export async function updateWebHook(dispatch: Dispatch<WebHooksActions | HomeAct
   dispatch(actions.setConfirmEditDialog(true))
   dispatch(actions.setEditPanel(false));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: updateSubscription,
   }).then(async injectionResults => {
     if (injectionResults[0].result) {

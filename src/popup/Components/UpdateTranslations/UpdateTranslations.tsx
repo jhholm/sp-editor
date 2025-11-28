@@ -53,7 +53,7 @@ const UpdateTranslations = ({ plo, tabId, ctx }: IQuickLinkListProps) => {
           setStatus({
             pending: true
           })
-          chrome.scripting
+          browser.scripting
             .executeScript({
               target: { tabId },
               world: 'MAIN',
@@ -103,7 +103,7 @@ const UpdateTranslations = ({ plo, tabId, ctx }: IQuickLinkListProps) => {
               setStatus({
                 pending: true
               })
-              chrome.scripting
+              browser.scripting
                 .executeScript({
                   target: { tabId: tabId },
                   world: 'MAIN',

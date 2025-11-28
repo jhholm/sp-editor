@@ -9,10 +9,10 @@ export async function runRestCall(dispatch: Dispatch<SPShootActions | HomeAction
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
-    args: [payload, chrome.runtime.getURL('')],
+    args: [payload, browser.runtime.getURL('')],
     func: shoot,
   }).then(injectionResults => {
     if (injectionResults[0].result) {
@@ -35,8 +35,8 @@ export async function getContextInfo(dispatch: Dispatch<SPShootActions | HomeAct
 
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting.executeScript({
-    target: { tabId: chrome.devtools.inspectedWindow.tabId },
+  browser.scripting.executeScript({
+    target: { tabId: browser.devtools.inspectedWindow.tabId },
     world: 'MAIN',
     func: () => {
       return (window as any)._spPageContextInfo || ((window as any).moduleLoaderPromise ? (window as any).moduleLoaderPromise.then((e: any) => {

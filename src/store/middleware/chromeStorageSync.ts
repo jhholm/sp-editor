@@ -6,7 +6,7 @@ const chromeStorageSync: Middleware<{}, IRootState> = store => next => action =>
   const state = store.getState();
 
   // Sync the state with Chrome storage
-  chrome.storage.local.set({ state }, () => {
+  browser.storage.local.set({ state }, () => {
     console.log('State saved to Chrome storage');
   });
 

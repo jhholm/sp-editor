@@ -340,7 +340,7 @@ const SearchResults = () => {
                                     const link = properties.selection._items.find(
                                       (o: any) => o.DocId === props?.group?.key && o.property === 'OriginalPath'
                                     ).value;
-                                    chrome.tabs.create({ url: link });
+                                    browser.tabs.create({ url: link });
                                   }}
                                 />
                                 <ActionButton
@@ -351,13 +351,13 @@ const SearchResults = () => {
                                   }}
                                   onClick={() => {
                                     dispatch(rootActions.setLoading(true));
-                                    chrome.scripting
+                                    browser.scripting
                                       .executeScript({
                                         target: {
-                                          tabId: chrome.devtools.inspectedWindow.tabId,
+                                          tabId: browser.devtools.inspectedWindow.tabId,
                                         },
                                         world: 'MAIN',
-                                        args: [props?.group?.key, searchQuery.SourceId, chrome.runtime.getURL('')],
+                                        args: [props?.group?.key, searchQuery.SourceId, browser.runtime.getURL('')],
                                         func: allprops,
                                       })
                                       .then((injectionResults) => {

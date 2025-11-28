@@ -197,11 +197,11 @@ export const getDefinitionsInUse = (codeWithOutComments: string, definitions: ID
   return currentLibs
 }
 
-export const mod_graph = `var mod_graph = '${chrome.runtime.getURL('bundles/graph.es5.umd.bundle.js')}';`
-export const mod_logging = `var mod_logging = '${chrome.runtime.getURL('bundles/logging.es5.umd.bundle.js')}';`
-export const mod_sp = `var mod_sp = '${chrome.runtime.getURL('bundles/sp.es5.umd.bundle.js')}';`
-export const mod_queryable = `var mod_queryable = '${chrome.runtime.getURL('bundles/queryable.es5.umd.bundle.js')}';`
-export const mod_core = `var mod_core = '${chrome.runtime.getURL('bundles/core.es5.umd.bundle.js')}';`
-export const mod_msaljsclient = `var mod_msaljsclient = '${chrome.runtime.getURL('bundles/msaljsclient.es5.umd.bundle.js')}';`
-export const mod_spadmin = `var mod_spadmin = '${chrome.runtime.getURL('bundles/sp-admin.es5.umd.bundle.js')}';`
-export const sj = `var sj = '${chrome.runtime.getURL('bundles/system.js')}';`
+export const mod_graph = `var mod_graph = '${browser.runtime.getURL('bundles/graph.es5.umd.bundle.js')}';`
+export const mod_logging = `var mod_logging = '${browser.runtime.getURL('bundles/logging.es5.umd.bundle.js')}';`
+export const mod_sp = `var mod_sp = '${browser.runtime.getURL('bundles/sp.es5.umd.bundle.js')}';`
+export const mod_queryable = `var mod_queryable = '${browser.runtime.getURL('bundles/queryable.es5.umd.bundle.js')}';`
+export const mod_core = `var mod_core = '${browser.runtime.getURL('bundles/core.es5.umd.bundle.js')}';`
+export const mod_msaljsclient = `var mod_msaljsclient = '${browser.runtime.getURL('bundles/msaljsclient.es5.umd.bundle.js')}';`
+export const mod_spadmin = `var mod_spadmin = '${browser.runtime.getURL('bundles/sp-admin.es5.umd.bundle.js')}';`
+export const sj = `var sj = '${browser.runtime.getURL('bundles/system.js')}';`

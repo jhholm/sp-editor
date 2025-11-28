@@ -158,14 +158,14 @@ const GraphSDKEditor = () => {
             ...loginRequest,
             account: accounts[0],
           })
-          chrome.devtools.inspectedWindow.eval(script.replace(/TOKENHERE/g, response.accessToken))
+          browser.devtools.inspectedWindow.eval(script.replace(/TOKENHERE/g, response.accessToken))
 
         } catch (e) {
           const response = await instance.acquireTokenPopup({
             ...loginRequest,
             account: accounts[0],
           })
-          chrome.devtools.inspectedWindow.eval(script.replace(/TOKENHERE/g, response.accessToken))
+          browser.devtools.inspectedWindow.eval(script.replace(/TOKENHERE/g, response.accessToken))
         }
       } catch (e) {
         //console.log(e)

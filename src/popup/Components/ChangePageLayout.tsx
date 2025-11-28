@@ -95,7 +95,7 @@ const ChangePageLayout = ({ plo, tabId, ctx }: IQuickLinkListProps) => {
         Pagelayout changed, reload the page.
       </MessageBar> : <div style={{ height: 32 }}></div>}
       <DialogFooter>
-        <PrimaryButton onClick={() => chrome.scripting.executeScript({
+        <PrimaryButton onClick={() => browser.scripting.executeScript({
           target: { tabId: tabId },
           world: 'MAIN',
           args: [ctx.webAbsoluteUrl, ctx.serverRequestPath, selected],

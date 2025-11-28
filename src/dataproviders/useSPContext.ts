@@ -28,14 +28,14 @@ export default function useSPContext(): ISPContextFetch {
   useEffect(() => {
     setStatus(FetchStatus.loading);
     const fetchTabUrl = () => {
-      chrome.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
+      browser.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
         if (tabs[0]?.url) {
           setTabUrl(tabs[0].url);
         }
       });
     };
     const fetchSPContext = (tabId: number) => {
-      chrome.scripting
+      browser.scripting
         .executeScript({
           target: { tabId },
           world: 'MAIN',
@@ -62,7 +62,7 @@ export default function useSPContext(): ISPContextFetch {
         });
     };
 
-    chrome.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
+    browser.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
       if (tabs[0]?.id) {
         fetchTabUrl();
         fetchSPContext(tabs[0].id);

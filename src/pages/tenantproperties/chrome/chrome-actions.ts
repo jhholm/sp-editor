@@ -11,11 +11,11 @@ import { getTenantProperties } from './gettenantproperties';
 export async function getAllTenantProperties(dispatch: Dispatch<TenantPropertiesActions | HomeActions>) {
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [chrome.runtime.getURL('')],
+      args: [browser.runtime.getURL('')],
       func: getTenantProperties,
     })
     .then((injectionResults) => {
@@ -79,11 +79,11 @@ export async function addTenantProperty(
     dispatch(actions.setNewPanel(false));
   }
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [payload, chrome.runtime.getURL('')],
+      args: [payload, browser.runtime.getURL('')],
       func: createTenantProperty,
     })
     .then(async (injectionResults) => {
@@ -129,11 +129,11 @@ export async function removeTenantProperties(
   // show loading spinner
   dispatch(rootActions.setLoading(true));
 
-  chrome.scripting
+  browser.scripting
     .executeScript({
-      target: { tabId: chrome.devtools.inspectedWindow.tabId },
+      target: { tabId: browser.devtools.inspectedWindow.tabId },
       world: 'MAIN',
-      args: [payload, chrome.runtime.getURL('')],
+      args: [payload, browser.runtime.getURL('')],
       func: deleteTenantProperties,
     })
     .then(async (injectionResults) => {

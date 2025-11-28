@@ -26,8 +26,8 @@ const QuickLinkButton = ({ text, iconName, disabled, url, newWTab = true }: IQui
       styles={buttonStyles}
       disabled={disabled}
       onClick={() => newWTab ?
-        chrome.tabs.create({ url: url }) :
-        chrome.tabs.update({ url: url })}
+        browser.tabs.create({ url: url }) :
+        browser.tabs.update({ url: url })}
     />
   )
 }

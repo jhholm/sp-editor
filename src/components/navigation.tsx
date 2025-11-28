@@ -76,7 +76,7 @@ export const FabricNav = () => {
         <IonToolbar>
           <IonTitle>
             SP Editor
-            <Text style={{ marginLeft: 4 }}>v.{chrome.runtime.getManifest().version}</Text>
+            <Text style={{ marginLeft: 4 }}>v.{browser.runtime.getManifest().version}</Text>
           </IonTitle>
           <IonButtons slot="end">
             <TooltipHost content={!isDark ? 'Switch to Dark Mode' : 'Switch to Light Mode'} delay={TooltipDelay.zero}>
