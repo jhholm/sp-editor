@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { Label, Pivot, PivotItem } from '@fluentui/react';
 
 import './popup.css';
-//import { initializeIcons } from '@fluentui/font-icons-mdl2';
+import { initializeIcons } from '@fluentui/react';
 import Actions from './Components/Actions';
 import ContextInfoPropertiesList, { ICtxInfoProperty } from './Components/ContextInfoPropertiesList';
 import QuickLinkList from './Components/QuickLinkList';
 import LoadTeamsDebug from './Components/LoadTeamsDebug';
 
-//initializeIcons();
+initializeIcons();
 
 async function getTenantSettings(ctx: any) {
   const tenantSettings = await fetch(ctx.webAbsoluteUrl + '/_api/SP_TenantSettings_Current', {
