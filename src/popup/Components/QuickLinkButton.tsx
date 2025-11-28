@@ -1,11 +1,11 @@
 import { CommandBarButton, IButtonStyles } from '@fluentui/react';
 
 export interface IQuickLinkButtonProps {
-  text: string,
-  iconName: string,
-  disabled: boolean,
-  url: string
-  newWTab?: boolean
+  text: string;
+  iconName: string;
+  disabled: boolean;
+  url: string;
+  newWTab?: boolean;
 }
 
 export const buttonStyles: IButtonStyles = {
@@ -25,11 +25,16 @@ const QuickLinkButton = ({ text, iconName, disabled, url, newWTab = true }: IQui
       iconProps={{ iconName: iconName }}
       styles={buttonStyles}
       disabled={disabled}
-      onClick={() => newWTab ?
-        browser.tabs.create({ url: url }) :
-        browser.tabs.update({ url: url })}
+      onClick={() =>
+        newWTab
+          ? browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+              browser.tabs.create({ url: url, openerTabId: tabs[0].id });
+              window.close();
+            })
+          : browser.tabs.update({ url: url })
+      }
     />
-  )
-}
+  );
+};
 
-export default QuickLinkButton
+export default QuickLinkButton;
