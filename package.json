@@ -61,6 +61,7 @@
     "@types/node": "^22.13.5",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@wxt-dev/module-react": "^1.1.5",
     "cross-env": "^7.0.3",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
@@ -68,11 +69,20 @@
     "gulp-replace": "^1.1.4",
     "react-scripts": "^5.0.1",
     "ts-loader": "^9.5.1",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "wxt": "^0.20.6"
   },
   "scripts": {
-    "start": "cross-env GENERATE_SOURCEMAP=false craco start",
-    "build": "react-scripts build && cd iframe-sandbox-app && cross-env BUILD_PATH='../build/build' react-scripts build && cd ..",
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "compile": "tsc --noEmit",
+    "postinstall": "wxt prepare",
+    "deprecated:start": "cross-env GENERATE_SOURCEMAP=false craco start",
+    "deprecated:build": "react-scripts build && cd iframe-sandbox-app && cross-env BUILD_PATH='../build/build' react-scripts build && cd ..",
     "updatedeps": "node_modules/.bin/webpack && gulp"
   },
   "eslintConfig": {

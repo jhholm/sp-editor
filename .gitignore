@@ -25,3 +25,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .eslintcache
+
+#WXT
+.wxt
+.output
+
