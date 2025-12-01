@@ -11,9 +11,11 @@ If you want to chip in by porting features or even creating new ones, here is a 
 git clone https://github.com/pnp/sp-editor.git # clone the project
 cd sp-editor # go to the folder
 code . # open vscode
-npm i # install dependencies
-npm run build # to build everything before starting to developing
-npm start # build and start watch mode
+pnpm i # install dependencies
+pnpm dev # run your extension in dev mode
+pnpm dev:firefox # run your extension in dev mode for Firefox
+pnpm build # create a production build
+pnpm build:firefox # create a production build for firefox
 ```
 When Watch is running, open Microsoft Edge and select Extensions from the menu
 
@@ -23,7 +25,7 @@ Enable Developer Mode
 
 ![](repo-images/edgedevelopermode.png)
 
-Load Unpacked Extension, select the **build** folder of the project
+Load Unpacked Extension, select the **.output/chrome-mv3-dev** or **.output/firefox-mv2-dev** folder of the project
 
 ![](repo-images/edgeloadunpacked.png)
 
