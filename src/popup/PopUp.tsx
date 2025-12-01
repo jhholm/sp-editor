@@ -81,11 +81,17 @@ const PopUp = () => {
           target: { tabId: tabs[0].id },
           world: 'MAIN',
           func: () => {
+            const cleanSPPageContextInfo = (_spPageContextInfo: any) => {
+              //Remove non-clonable objects, this could be done dynamically but for now just hardcoding known ones
+              const { tokenProvider, dataSyncClient, ...clonableSPPageContextInfo } = _spPageContextInfo;
+              return clonableSPPageContextInfo;
+            }
             return (
-              (window as any)._spPageContextInfo ||
+              cleanSPPageContextInfo((window as any)._spPageContextInfo) ||
               ((window as any).moduleLoaderPromise
                 ? (window as any).moduleLoaderPromise.then((e: any) => {
-                    return ((window as any)._spPageContextInfo = e.context._pageContext._legacyPageContext);
+                    (window as any)._spPageContextInfo = e.context._pageContext._legacyPageContext;
+                    return cleanSPPageContextInfo((window as any)._spPageContextInfo);
                   })
                 : null)
             );
@@ -98,34 +104,35 @@ const PopUp = () => {
             const props: ICtxInfoProperty[] = Object.entries(injectionResults[0].result)
               .map((entry) => {
                 const key = entry[0];
-                const value = JSON.stringify(entry[1]).replace(/^"|"$/g, '');
+                const rawValue = entry[1] === undefined ? 'undefined' : entry[1];
+                const value = JSON.stringify(rawValue).replace(/^"|"$/g, '');
                 return { property: key, value: value };
               })
               .sort((a, b) => a.property.localeCompare(b.property));
 
             setProperties(props);
             browser.scripting.executeScript({
-              target: { tabId: tabs[0].id },
-              world: 'MAIN',
-              func: getTenantSettings,
-              args: [ctx]
-            }).then((r) => {
-              if (r[0].result) {
-                setAppCatalogUrl(r[0].result.CorporateCatalogUrl);
-              }
-            });
-
-            if (ctx.webAbsoluteUrl && ctx.serverRequestPath && ctx.pageListId && ctx.pageItemId > -1) {
-              browser.scripting.executeScript({
                 target: { tabId: tabs[0].id },
                 world: 'MAIN',
-                func: getPlo,
+                func: getTenantSettings,
                 args: [ctx]
               }).then((r) => {
                 if (r[0].result) {
-                  setPlo(r[0].result);
+                  setAppCatalogUrl(r[0].result.CorporateCatalogUrl);
                 }
               });
+
+            if (ctx.webAbsoluteUrl && ctx.serverRequestPath && ctx.pageListId && ctx.pageItemId > -1) {
+              browser.scripting.executeScript({
+                  target: { tabId: tabs[0].id },
+                  world: 'MAIN',
+                  func: getPlo,
+                  args: [ctx]
+                }).then((r) => {
+                  if (r[0].result) {
+                    setPlo(r[0].result);
+                  }
+                });
             }
           }
         });
