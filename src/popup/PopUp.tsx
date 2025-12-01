@@ -7,6 +7,7 @@ import Actions from './Components/Actions';
 import ContextInfoPropertiesList, { ICtxInfoProperty } from './Components/ContextInfoPropertiesList';
 import QuickLinkList from './Components/QuickLinkList';
 import LoadTeamsDebug from './Components/LoadTeamsDebug';
+import { getSPPageContextInfo } from '@/src/utilities/chromecommon';
 
 initializeIcons();
 
@@ -76,26 +77,12 @@ const PopUp = () => {
     browser.tabs.query({ currentWindow: true, active: true }, (tabs: any) => {
       setTabId(tabs[0].id);
       setTabUrl(tabs[0].url);
+      //debugger;
       browser.scripting
         .executeScript({
           target: { tabId: tabs[0].id },
           world: 'MAIN',
-          func: () => {
-            const cleanSPPageContextInfo = (_spPageContextInfo: any) => {
-              //Remove non-clonable objects, this could be done dynamically but for now just hardcoding known ones
-              const { tokenProvider, dataSyncClient, ...clonableSPPageContextInfo } = _spPageContextInfo;
-              return clonableSPPageContextInfo;
-            }
-            return (
-              cleanSPPageContextInfo((window as any)._spPageContextInfo) ||
-              ((window as any).moduleLoaderPromise
-                ? (window as any).moduleLoaderPromise.then((e: any) => {
-                    (window as any)._spPageContextInfo = e.context._pageContext._legacyPageContext;
-                    return cleanSPPageContextInfo((window as any)._spPageContextInfo);
-                  })
-                : null)
-            );
-          },
+          func: getSPPageContextInfo
         })
         .then((injectionResults) => {
           if (injectionResults[0].result) {
@@ -164,7 +151,7 @@ const PopUp = () => {
         {ctx ? <ContextInfoPropertiesList properties={properties} /> : <NoContext message={SPMessage} />}
       </PivotItem>
       <PivotItem headerText="Actions">
-        {plo && tabId ? <Actions ctx={ctx} plo={plo} tabId={tabId} /> : <NoContext message={SPMessage} />}
+        {ctx && tabId ? <Actions ctx={ctx} plo={plo} tabId={tabId} /> : <NoContext message={SPMessage} />}
       </PivotItem>
       <PivotItem headerText="Teams">
         {isTeams && tabId ? <LoadTeamsDebug tabId={tabId} /> : <NoContext message={TeamsMessage} />}

@@ -32,18 +32,23 @@ const scrollablePaneStyles: IScrollablePaneStyles = {
   contentContainer: undefined,
 };
 const Actions = ({ ctx, plo, tabId }: IQuickLinkListProps) => {
-  return ctx && plo ? (
+  return ctx &&  (
     <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto} styles={scrollablePaneStyles}>
+      {plo && (
+        <>
+          <Separator alignContent="start" styles={separatorStyles}>
+            Page actions
+          </Separator>
+          <ChangePageLayout ctx={ctx} plo={plo} tabId={tabId} />
+          <UpdateTranslations ctx={ctx} plo={plo} tabId={tabId} />
+        </>
+      )}
       <Separator alignContent="start" styles={separatorStyles}>
-        Page actions
+        Site actions
       </Separator>
-      <ChangePageLayout ctx={ctx} plo={plo} tabId={tabId} />
-      <UpdateTranslations ctx={ctx} plo={plo} tabId={tabId} />
       <SitesSelectedPermissions ctx={ctx} plo={plo} tabId={tabId} />
     </ScrollablePane>
-  ) : (
-    <></>
-  );
+  )
 };
 
 export default Actions;

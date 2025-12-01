@@ -49,3 +49,21 @@ export function exescript(this: any, script: any) {
     }), '*')
   }
 }
+
+export function getSPPageContextInfo() {
+  const cleanSPPageContextInfo = (_spPageContextInfo: any) => {
+    if (!_spPageContextInfo) return null;
+    //Remove non-clonable objects, this could be done dynamically but for now just hardcoding known ones
+    const { tokenProvider, dataSyncClient, ...clonableSPPageContextInfo } = _spPageContextInfo;
+    return clonableSPPageContextInfo;
+  };
+  return (
+    cleanSPPageContextInfo((window as any)._spPageContextInfo) ||
+    ((window as any).moduleLoaderPromise
+      ? (window as any).moduleLoaderPromise.then((e: any) => {
+          (window as any)._spPageContextInfo = e.context._pageContext._legacyPageContext;
+          return cleanSPPageContextInfo((window as any)._spPageContextInfo);
+        })
+      : null)
+  );
+}
